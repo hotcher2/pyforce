@@ -6,6 +6,7 @@ import logutils
 from models import Lead
 from crud import recreate_database, Session
 
+
 config = dotenv_values(".env")
 
 log = logutils.get_logger(__name__)
@@ -36,10 +37,30 @@ s.commit()
 
 leads = s.query(Lead).all()
 
+log.info('SQL Lead Query Results')
+log.info('----------------------')
 for l in leads:
     log.info(l)
 
 s.close()
 
-# for rec in data["records"]:
-#    log.info(rec["Name"])
+bulk_results = sf.bulk.Account.query('SELECT Id, Name FROM Account', lazy_operation=True)
+log.debug('Type of bulk_results: ' + str(type(bulk_results)))
+
+all_results = []
+
+for bd in bulk_results:
+    log.debug('bulk_results item type: ' + str(type(bd)))
+    all_results.extend(bd)
+
+if len(all_results) > 0:
+    log.debug('all_results item type: ' + str(type(all_results[0])))
+    log.debug('all_results item: ' + all_results[0]["Name"])
+else:
+    log.debug('No results retrieved from bulk Account query')
+
+log.info('Bulk Account Query Results')
+log.info('--------------------------')
+for res in all_results:
+    log.info(res)
+

@@ -1,3 +1,4 @@
+import os
 from dotenv import dotenv_values
 from simple_salesforce import Salesforce
 from sqlalchemy.orm import sessionmaker
@@ -6,6 +7,8 @@ import logutils
 from models import Lead
 from crud import recreate_database, Session
 
+if not os.path.exists('./logs'):
+    os.makedirs('./logs')
 
 config = dotenv_values(".env")
 

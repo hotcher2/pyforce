@@ -17,7 +17,13 @@ log = logutils.get_logger(__name__)
 recreate_database()
 
 log.info('Salesforce Username: ' + config["USERNAME"])
-sf = Salesforce(username=config["USERNAME"], password=config["PASSWORD"], security_token=config["TOKEN"])
+
+sf = None
+if config["DOMAIN"] == "test":
+    sf = Salesforce(username=config["USERNAME"], password=config["PASSWORD"], organizationId=config["ORGID"], domain="test")
+else:
+    sf = Salesforce(username=config["USERNAME"], password=config["PASSWORD"], security_token=config["TOKEN"])
+
 log.info('Successfully logged into Salesforce')
 
 data = sf.query('SELECT Id, FirstName, LastName, Phone, Email FROM Lead')

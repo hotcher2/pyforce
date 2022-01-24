@@ -2,7 +2,7 @@
 
 from dotenv import dotenv_values
 
-config = dotenv_values(".env")
+config = dotenv_values(".env-sample")
 dbusername = config['DBUSERNAME']
 dbpassword = config['DBPASSWORD']
 dbhost = config['DBHOST']

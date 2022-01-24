@@ -7,10 +7,10 @@ import logutils
 from models import Lead
 from crud import recreate_database, Session
 
-if not os.path.exists('./logs'):
-    os.makedirs('./logs')
+if not os.path.exists('../logs'):
+    os.makedirs('../logs')
 
-config = dotenv_values(".env")
+config = dotenv_values(".env-sample")
 
 log = logutils.get_logger(__name__)
 
@@ -26,7 +26,7 @@ else:
 
 log.info('Successfully logged into Salesforce')
 
-data = sf.query('SELECT Id, FirstName, LastName, Phone, Email FROM Lead')
+data = sf.query('SELECT Id, FirstName, LastName, Phone, Email FROM Lead LIMIT 5000')
 log.info('Found %s Leads', data["totalSize"])
 
 s = Session()

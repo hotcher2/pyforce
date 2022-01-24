@@ -2,7 +2,7 @@ import logging
 import sys
 
 FORMATTER = logging.Formatter("%(asctime)s — %(name)s — %(levelname)s — %(message)s")
-LOG_FILE = "logs/app.log"
+LOG_FILE = "../logs/app.log"
 
 def get_console_handler():
    console_handler = logging.StreamHandler(sys.stdout)
